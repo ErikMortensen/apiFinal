@@ -18,12 +18,16 @@ use Illuminate\Support\Facades\Route;
 //     return $request->user();
 // });
 
-Route::middleware('auth:sanctum')->get('users', "UserController@users");
+//Route::middleware('auth:sanctum')->get('users', "UserController@users");
 
-Route::resource('teachers', 'TeacherController', ['only' => ['index', 'show']]);
+Route::middleware('auth:sanctum')->group( function (){
+    Route::resource('users', 'UserController', ['except' => ['create', 'edit', 'store']]);
+});
+
+//Route::resource('teachers', 'TeacherController', ['only' => ['index', 'show']]);
 Route::resource('students', 'StudentController', ['only' => ['index', 'show']]);
 Route::resource('clases', 'ClaseController', ['only' => ['index', 'show']]);
 Route::resource('materias', 'MateriaController', ['only' => ['index', 'show']]);
-Route::resource('users', 'UserController', ['except' => ['create', 'edit']]);
 
-Route::post('login', "UserController@index");
+Route::post('login', "UserController@login");
+Route::post('register', "UserController@store");

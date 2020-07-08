@@ -7,13 +7,13 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
 
-class User extends Authenticatable
+class User extends Authenticatable implements MustVerifyEmail
 {
     use HasApiTokens, Notifiable;
 
-    const ROL_STUDENT = 'studen';
-    const ROL_TEACHER = 'teacher';
-    const ROL_ADMIN = 'admin';
+    const USUARIO_STUDENT = 'studen';
+    const USUARIO_TEACHER = 'teacher';
+    const USUARIO_ADMIN = 'admin';
 
 
     /**
@@ -24,14 +24,16 @@ class User extends Authenticatable
     protected $fillable = [
         'name', 
         'email',
-        'email_verified_at',
         'password',
-        'verified',
-        'verification_token',
+        'email_verified_at',
+       
+        'remember_token',
         'imagen',
         'rol',
     ];
+ // 'verification_token',
 
+ 
     /**
      * The attributes that should be hidden for arrays.
      *
@@ -51,14 +53,14 @@ class User extends Authenticatable
     ];
 
     public function esStudent(){
-        return $this->rol == User::ROL_STUDENT;
+        return $this->rol == User::USUARIO_STUDENT;
     }
 
     public function esTeacher(){
-        return $this->rol == User::ROL_TEACHER;
+        return $this->rol == User::USUARIOTEACHER;
     }
 
     public function esAdmin(){
-        return $this->rol == User::ROL_ADMIN;
+        return $this->rol == User::USUARIO_ADMIN;
     }
 }

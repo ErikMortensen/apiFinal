@@ -23,6 +23,8 @@ $factory->define(User::class, function (Faker $faker) {
         'email' => $faker->unique()->safeEmail,
         'email_verified_at' => now(),
         'password' => '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', // password
+        'imagen' => $faker->randomElement(['images_01.jpg', 'images_02.jpg', 'images_03.jpg', 'images_04.jpg', 'images_05.jpg',]),
+        'rol' => $faker->randomElement([User::USUARIO_ADMIN, User::USUARIO_STUDENT, User::USUARIO_TEACHER]),
         'remember_token' => Str::random(10),
     ];
 });
