@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\User;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Str;
 
 class UserController extends Controller
 {
@@ -66,12 +67,9 @@ class UserController extends Controller
         $fields['password'] = Hash::make($request['password']);
         $fields['imagen'] = null;
         $fields['rol'] = User::USUARIO_STUDENT;
-        //$fields['remember_token']= Str::random(10);
+        $fields['remember_token']= Str::random(10);
 
         $user = User::create($fields);
-
-        //return response()->json(['data' => $user], 201);
-
 
         $token = $user->createToken('my-app-token')->plainTextToken;
         
